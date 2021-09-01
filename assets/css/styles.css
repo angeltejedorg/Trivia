@@ -1,0 +1,21 @@
+.main-info {
+    margin: 10px;
+    background-color: blue;
+    padding: 40px;
+}
+
+.user-selection {
+    margin-bottom: 25px;
+}
+
+select {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.go-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 5px 25px;
+}
