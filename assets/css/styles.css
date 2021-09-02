@@ -14,8 +14,26 @@ select {
     margin-top: 5px;
 }
 
-.go-btn {
+input[type="submit"] {
     display: block;
     margin: 0 auto;
     padding: 5px 25px;
 }
+
+input[type="text"]{
+    width: 100%;
+    margin-top: 5px;
+}
+
+.trivia-questions {
+    background-color: blue;
+    position: fixed;
+    z-index: 1;
+    width: 95%;
+    height: 90%;
+    transform: scaleY(0);
+    transition: all 0.5s ease;
+    border-radius: 30px; 
+}
+
+
