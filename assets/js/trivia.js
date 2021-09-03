@@ -124,7 +124,7 @@ const showScore = () => {
         <div class="question-item">
         <h1>Congratulations!</h1>
         <h1><span>YOU WON!</span></h1>
-        <h2>Here's your score: ${score}</h1>
+        <h2>Here's your score: ${score.toFixed(1)}%</h1>
 
         <button onclick="playAgain()" class="play-button">Play again!</button>
         </div>
@@ -135,7 +135,7 @@ const showScore = () => {
         <div class="question-item">
         <h1>I'm sorry</h1>
         <h1><span>YOU LOST...</span></h1>
-        <h2>Here's your score: ${score}</h1>
+        <h2>Here's your score: ${score.toFixed(1)}%</h1>
 
         <button onclick="playAgain()" class="play-button">Try again</button>
         </div>
