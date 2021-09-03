@@ -1,7 +1,9 @@
 // URL base
 const API = "https://opentdb.com/api.php";
 let questionsAPI;
-let nQuestions = 0;
+let n = 0; //Question number
+let answers = [];
+let score = 0;
 const form = document.getElementById("main-form");
 const questionContainer = document.getElementById("question-container")
 
@@ -25,33 +27,126 @@ const fetchDataAPI = url => {
 
 const getQuestions = (resultAPI) => {
     questionsAPI = resultAPI;
+    console.log(questionsAPI);
     showContainerQuestion();
     showQuestion();
 }
 
 
-const showQuestion = () => {
 
-    console.log(questionsAPI[nQuestions].question)
+
+const showQuestion = () => {
+    getAnswers();
+    console.log(questionsAPI)
     
-    questionContainer.innerHTML =
-    ` 
-    <div class="question-item">
-        <h2>${questionsAPI[nQuestions].question}</h2>
-        <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
-    `
-    ;   
+    if (questionsAPI[n].type==="boolean"){
+        questionContainer.innerHTML =
+        ` 
+        <div class="question-item">
+            <h2>Question #${n+1}</h2>
+            <h2>${questionsAPI[n].question}</h2>
+            <ul>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[0]}</button></li>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[1]}</button></li>
+            </ul>
+        </div>
+        `
+        ;  
+    }
+    else {
+        questionContainer.innerHTML =
+        ` 
+        <div class="question-item">
+            <h2>Question #${n+1}</h2>
+            <h2>${questionsAPI[n].question}</h2>
+            <ul>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[0]}</button></li>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[1]}</button></li>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[2]}</button></li>
+                <li><button onclick="handleCheckAnswer(this)" class="button-answer">${answers[3]}</button></li>
+            </ul>
+        </div>
+        `
+    } 
+    
+}
+
+const getAnswers = () => {
+    answers = questionsAPI[n].incorrect_answers;
+    answers = [...answers, questionsAPI[n].correct_answer];
+    answers.sort( () => {return Math.random() - 0.5})
 }
 
 const showContainerQuestion = () => {
     questionContainer.style.transform = "scaleY(1)";
 }
 
+
+const handleCheckAnswer = button => {
+    console.log(button);
+    if (button.innerText === questionsAPI[n].correct_answer) {
+        // button.classList.remove("button-answer")
+        button.classList.add("bg-right")
+        calculateScore();
+        setTimeout(nextQuestion, 1000);
+           
+    }
+    else {
+        button.classList.add("bg-wrong")
+        setTimeout(nextQuestion, 500);
+
+    }
+}
+
+const calculateScore = () => {
+    let rateScore = (100/questionsAPI.length);
+    rateScore = rateScore.toFixed(1)
+    score = score + rateScore;
+}
+
+const nextQuestion = () => {
+    questionContainer.innerHTML = "";
+    answers = [];
+    if (questionsAPI.length - 1 !== n) {
+        n++;
+        showQuestion();
+    }
+    else{
+        questionContainer.innerHTML = "";
+        showScore();
+    }
+    
+}
+
+const showScore = () => {
+    console.log(score)
+    if (score >= 70) {
+        questionContainer.innerHTML = `
+        <div class="question-item">
+        <h1>Congratulations!</h1>
+        <h1><span>YOU WON!</span></h1>
+        <h2>Here's your score: <span>${score}%</span></h1>
+
+        <button onclick="playAgain()" class="play-button">Play again!</button>
+        </div>
+        `      
+    }
+    else {
+        questionContainer.innerHTML = `
+        <div class="question-item">
+        <h1>I'm sorry</h1>
+        <h1><span>YOU LOST...</span></h1>
+        <h2>Your score ir <span>${score}%</span></h1>
+
+        <button onclick="playAgain()" class="play-button">Try again</button>
+        </div>
+        `      
+    }
+}
+
+const playAgain = () => {
+    window.location.reload();
+}
 // Events
 form.onsubmit = createUrl;
+
