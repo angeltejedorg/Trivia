@@ -27,7 +27,7 @@ const fetchDataAPI = url => {
 
 const getQuestions = (resultAPI) => {
     questionsAPI = resultAPI;
-    console.log(questionsAPI);
+    
     showContainerQuestion();
     showQuestion();
 }
@@ -37,7 +37,7 @@ const getQuestions = (resultAPI) => {
 
 const showQuestion = () => {
     getAnswers();
-    console.log(questionsAPI)
+    
     
     if (questionsAPI[n].type==="boolean"){
         questionContainer.innerHTML =
@@ -83,7 +83,7 @@ const showContainerQuestion = () => {
 
 
 const handleCheckAnswer = button => {
-    console.log(button);
+    
     if (button.innerText === questionsAPI[n].correct_answer) {
         // button.classList.remove("button-answer")
         button.classList.add("bg-right")
@@ -100,7 +100,7 @@ const handleCheckAnswer = button => {
 
 const calculateScore = () => {
     let rateScore = (100/questionsAPI.length);
-    rateScore = rateScore.toFixed(1)
+    // rateScore = rateScore.toFixed(1)
     score = score + rateScore;
 }
 
@@ -119,7 +119,7 @@ const nextQuestion = () => {
 }
 
 const showScore = () => {
-    console.log(score)
+    
     if (score >= 70) {
         questionContainer.innerHTML = `
         <div class="question-item">
