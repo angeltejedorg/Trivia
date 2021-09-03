@@ -100,7 +100,6 @@ const handleCheckAnswer = button => {
 
 const calculateScore = () => {
     let rateScore = (100/questionsAPI.length);
-    // rateScore = rateScore.toFixed(1)
     score = score + rateScore;
 }
 
@@ -125,7 +124,7 @@ const showScore = () => {
         <div class="question-item">
         <h1>Congratulations!</h1>
         <h1><span>YOU WON!</span></h1>
-        <h2>Here's your score: <span>${score}%</span></h1>
+        <h2>Here's your score: ${score}</h1>
 
         <button onclick="playAgain()" class="play-button">Play again!</button>
         </div>
@@ -136,7 +135,7 @@ const showScore = () => {
         <div class="question-item">
         <h1>I'm sorry</h1>
         <h1><span>YOU LOST...</span></h1>
-        <h2>Your score ir <span>${score}%</span></h1>
+        <h2>Here's your score: ${score}</h1>
 
         <button onclick="playAgain()" class="play-button">Try again</button>
         </div>
